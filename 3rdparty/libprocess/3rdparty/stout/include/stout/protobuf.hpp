@@ -51,8 +51,8 @@ namespace protobuf {
 inline Try<Nothing> write(int fd, const google::protobuf::Message& message)
 {
   if (!message.IsInitialized()) {
-    return Error(message.InitializationErrorString() +
-                 " is required but not initialized");
+    std::cerr << "Protobuf not initialized: " << message.InitializationErrorString() << std::endl;
+    abort();
   }
 
   // First write the size of the protobuf.
