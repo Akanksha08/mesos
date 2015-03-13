@@ -567,6 +567,10 @@ struct Protobuf
   // fields but we may want to revisit this decision.
   Protobuf(const google::protobuf::Message& message)
   {
+    if (!message.IsInitialized()) { 
+      std::cerr << "Protobuf not initialized: " << message.InitializationErrorString() << std::endl;
+       abort();
+    }
     const google::protobuf::Descriptor* descriptor = message.GetDescriptor();
     const google::protobuf::Reflection* reflection = message.GetReflection();
 
